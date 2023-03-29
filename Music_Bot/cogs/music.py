@@ -36,13 +36,6 @@ class Music(commands.Cog):
             # 현재 재생 중인 음악 종료
             ctx.voice_client.stop()
 
-        # opus 에러 확인
-        try:
-            discord.opus.load_opus("opus")
-        except discord.DiscordException as e:
-            print(e)
-        print(discord.opus.is_loaded())
-
         await ctx.send(url)
         embed = discord.Embed(
             title="음악 재생",
