@@ -70,13 +70,24 @@ class Music(commands.Cog):
     @commands.command(name="음악종료")
     async def quit_music(self, ctx):
         voice = ctx.voice_client
-        if voice.is_connected():
-            await voice.disconnect()
+        if voice.is_connected():  # 음성 채널에 연결 중이면
+            await voice.disconnect()  # 음성 채널 연결을 끊음
             embed = discord.Embed(
                 title="", description="음악 재생을 종료합니다.", color=discord.Color.blue()
             )
             await ctx.send(embed=embed)
             print("End of music")
+
+    @commands.command(name="일시정지")
+    async def pause_music(self, ctx):
+        voice = ctx.voice_client
+        if voice.is_playing():  # 음악을 재생 중이면
+            await voice.pause()  # 음악 일시정지
+            embed = discord.Embed(
+                title="", description="음악 재생을 일시정지합니다.", color=discord.Color.blue()
+            )
+            await ctx.send(embed=embed)
+            print("Pause the music")
 
 
 async def setup(client):
