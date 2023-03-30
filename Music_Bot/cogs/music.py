@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from youtube_dl import YoutubeDL
+from .module.youtube import get_url
 
 
 class Music(commands.Cog):
@@ -17,7 +18,11 @@ class Music(commands.Cog):
         print("Music Cog is Ready")
 
     @commands.command(name="음악재생")
-    async def play_music(self, ctx, url):
+    async def play_music(self, ctx, *keywords):
+        keyword = " ".join(keywords)
+        url = get_url(keyword)
+        print(f"Keyword : {keyword}")
+
         # 봇이 음성 채널에 연결되어 있지 않으면
         if ctx.voice_client is None:
             # 명령어(ctx) 작성자(author)의 음성 채널에 연결 상태 확인
