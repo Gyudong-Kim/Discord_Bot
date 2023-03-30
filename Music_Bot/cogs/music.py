@@ -35,6 +35,7 @@ class Music(commands.Cog):
         elif ctx.voice_client.is_playing():
             # 현재 재생 중인 음악 종료
             ctx.voice_client.stop()
+            print("End music that was playing")
 
         await ctx.send(url)
         embed = discord.Embed(
@@ -64,6 +65,18 @@ class Music(commands.Cog):
             color=discord.Color.blue(),
         )
         await ctx.send(embed=embed)
+        print(f"Play music : {title}")
+
+    @commands.command(name="음악종료")
+    async def quit_music(self, ctx):
+        voice = ctx.voice_client
+        if voice.is_connected():
+            await voice.disconnect()
+            embed = discord.Embed(
+                title="", description="음악 재생을 종료합니다.", color=discord.Color.blue()
+            )
+            await ctx.send(embed=embed)
+            print("End of music")
 
 
 async def setup(client):
