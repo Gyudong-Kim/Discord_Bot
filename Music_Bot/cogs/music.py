@@ -82,9 +82,20 @@ class Music(commands.Cog):
     async def pause_music(self, ctx):
         voice = ctx.voice_client
         if voice.is_playing():  # 음악을 재생 중이면
-            await voice.pause()  # 음악 일시정지
+            voice.pause()  # 음악 일시정지
             embed = discord.Embed(
                 title="", description="음악 재생을 일시정지합니다.", color=discord.Color.blue()
+            )
+            await ctx.send(embed=embed)
+            print("Pause the music")
+
+    @commands.command(name="다시시작")
+    async def resume_music(self, ctx):
+        voice = ctx.voice_client
+        if voice.is_paused():  # 음악이 일시정지되어 있으면
+            voice.resume()  # 음악을 이어서 재생
+            embed = discord.Embed(
+                title="", description="일시정지된 음악을 이어서 재생합니다.", color=discord.Color.blue()
             )
             await ctx.send(embed=embed)
             print("Pause the music")
