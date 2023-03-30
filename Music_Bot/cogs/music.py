@@ -52,13 +52,10 @@ class Music(commands.Cog):
             # 비디오를 사용하지 않음
             "options": "-vn",
             # ffmpeg에서 연결이 끊기는 경우, 재연결 시도
-            # "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+            "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
         }
 
-        player = discord.FFmpegPCMAudio(
-            link,
-            **ffmpeg_options,
-        )
+        player = discord.FFmpegPCMAudio(link, **ffmpeg_options)
         ctx.voice_client.play(player)
 
         embed = discord.Embed(
